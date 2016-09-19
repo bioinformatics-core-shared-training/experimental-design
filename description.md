@@ -18,4 +18,6 @@ controls
 
 # Objectives: After this course you should be able to
 
+- Identify sources of variability (technical and biological) in your data
+- Identify any potential confounding factors in your experimental setup
 - Prepare for a Experimental Design Meeting between yourself and the Genomics and Bioinformatics Cores
