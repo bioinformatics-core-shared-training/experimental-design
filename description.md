@@ -18,6 +18,4 @@ controls
 
 # Objectives: After this course you should be able to
 
-- Prepare for a Experimental Design Meeting you the Genomics and Bioinformatics Cores
-- 
-
+- Prepare for a Experimental Design Meeting between yourself and the Genomics and Bioinformatics Cores
