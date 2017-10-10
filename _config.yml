@@ -1,0 +1,8 @@
+title: Experimental Design
+description: A Course on designing high-throughput experiments
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions
