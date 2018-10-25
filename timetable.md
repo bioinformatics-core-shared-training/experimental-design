@@ -14,4 +14,4 @@
 
 15:00 - 15:45 Small groups (session3 - 1 experiment)
 
-15:45 - 16:30 Whole-class discussion
+15:45 – 17:15 Whole-class discussion (Room booked until 17:30)
