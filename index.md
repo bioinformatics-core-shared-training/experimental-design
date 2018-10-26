@@ -9,7 +9,9 @@ The course consists of a lecture and small-group discussions led by a member of 
 
 - Course [Slides](/ExperimentalDesignCourseSlidesNov2017.pdf)
 - A Course [Manual](ExperimentalDesignManual.pdf)
-- A [Practical](ExperimentalDesignPracticalsQuestions2017.pdf) and some ["Solutions" / discussion](ExperimentalDesignPracticalsSolutions2017.pdf)
+- A [Practical](ExperimentalDesignPracticalsQuestions2017.pdf)   
+
+[//]: # (and some ["Solutions" / discussion](ExperimentalDesignPracticalsSolutions2017.pdf))
 
 # Course Timetable (for 29th Oct 2018)
 [Timetable](timetable.md)
