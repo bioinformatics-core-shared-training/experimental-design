@@ -7,7 +7,7 @@ The course consists of a lecture and small-group discussions led by a member of 
 
 # Course Materials
 
-- Course [Slides](/ExperimentalDesignCourseSlidesNov2018.pdf)
+- Course [Slides](/ExperimentalDesignCourseSlides2018.pdf)
 - A Course [Manual](ExperimentalDesignManual.pdf)
 - A [Practical](ExperimentalDesignPracticalsQuestions2017.pdf) and some ["Solutions" / discussion](ExperimentalDesignPracticalsSolutions2017.pdf)
 
