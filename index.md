@@ -9,9 +9,9 @@ Tinyurl for this page:[https://tinyurl.com/cruk-expt-des](https://tinyurl.com/cr
 
 # Course Materials
 
-- Course [Slides](/ExperimentalDesignCourseSlides2018.pdf)
+- Course [Slides](/ExperimentalDesignCourseSlides.pdf)
 - A Course [Manual](ExperimentalDesignManual.pdf)
-- A [Practical](ExperimentalDesignPracticalsQuestions2017.pdf) and some ["Solutions" / discussion](ExperimentalDesignPracticalsSolutions2017.pdf)
+- A [Practical](ExperimentalDesignPracticals.pdf) and some ["Solutions" / discussion](ExperimentalDesignPracticals_Solutions.pdf)
 
 # Further Reading and Resources
 
