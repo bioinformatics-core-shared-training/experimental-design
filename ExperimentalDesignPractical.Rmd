@@ -1,0 +1,663 @@
+---
+title: "Experimental Design Practical"
+output: 
+    pdf_document:
+        toc: true
+        extra_dependencies: ["enumitem"]
+params:
+    showSolutions: "Yes"
+---
+\newcommand{\solution}[1]{{\leavevmode\color{blue}#1}}
+\newpage
+
+```{r setup, include=FALSE}
+library(stringr)
+knitr::opts_chunk$set(echo = FALSE)
+showSolutions <- params$showSolutions=="Yes"
+```
+
+```{r latexFormattingFunctions}
+solution <- function(x) {
+    str_c("\\solution{", x, "}") %>% 
+        str_replace_all("\n", "\n\n") %>% 
+        cat()
+}
+solution_bullet <- function(x) {
+    str_replace_all(x, "\n", "\n\n\\\\item ") %>% 
+        str_c("\\begin{itemize}",
+              "\\color{blue}",
+              "\\item ", ., 
+              "\\end{itemize}") %>% 
+        cat()
+}
+solution_letters <- function(x) {
+    str_replace_all(x, "\n", "\n\n\\\\item ") %>% 
+        str_c("\\begin{enumerate}[label=\\alph*]",
+              "\\color{blue}",
+              "\\item ", ., 
+              "\\end{enumerate}") %>% 
+        cat()
+}
+solution_arabic <- function(x) {
+    str_replace_all(x, "\n", "\n\n\\\\item ") %>% 
+        str_c("\\begin{enumerate}[label=\\arabic*]",
+              "\\color{blue}",
+              "\\item ", ., 
+              "\\end{enumerate}") %>% 
+        cat()
+}
+```
+
+
+# 1. Human practical: Identification of prognostic biomarkers in human prostate cancer patients
+
+A study is being run to look for prognostic biomarkers of recurrence free
+survival in prostate cancer in the UK.
+
+A biomarker is a term often used to refer to measurable characteristics that
+reflects the severity or presence of some disease state. More generally a
+biomarker is anything that can be used as an indicator of a particular disease
+state. Biomarkers can be measured from many different things including blood,
+urine, saliva or tissue samples.
+
+**Study aim**: To find a panel of prognostic biomarkers to predict those with
+poor recurrence free survival from prostate cancer to be able to offer them more
+aggressive treatment and spare those with a better prognosis from a treatment
+that is too aggressive.
+
+1.	What would the ideal study cohort be? What factors prevent this from being
+the study cohort? In reality what cohort would be chosen? What issues might this
+cause?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "In an ideal world our cohort in this observational cohort study would be all prostate cancer patients from the UK at a particular time point. Logistically (spread over too wide an area and in too many hospitals), financially (many patients to take samples from and track) and ethically (not all patients will consent to be in the study) this would not be possible. For these reasons we need to take a sample of the patients.
+    Ideally we would take a random sample of all patients from across the country with every patient having an equal chance of being included in the study. Again this would have logistical issues. Next best would be to take a random sample of hospitals across the country and take a random sample of patients within those hospitals, with the sample size being proportional to the number of prostate cancer patients and perhaps stratifying on some important variables. These two methods are most likely to give a cohort that is representative of the population of the UK therefore the results will be generalisable to the population of interest.
+    Most likely is that the study cohort will be all the patients within a particular time frame who consent to be included in the study from a local hospital, or perhaps with one or two others included. Issues with the generalisability of the study findings may arise if this hospital(s) are not representative of the population of prostate cancer patients across the UK."
+    )
+```
+
+2.	What are the pros and cons for using a retrospective or prospective cohort
+for this study? [A retrospective cohort study looks back over time and takes
+data from patients notes and/or interviews. A prospective cohort study follows
+the cohort through time collecting data as it goes].
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "A retrospective study might not collect the correct data if it is something that is not routinely available in patient notes, they are more prone to missing data that can not be filled in at a later date. Data may not be in the correct format. Time consuming to extract data from notes. However, most of the data is already there, might have long follow up of patients, don’t need to wait a long time to achieve this. 
+    A prospective study allows collection of exactly the data that you need in the way that you need it. Less likely to have missing data, as you maybe able to chase up missing values if they are spotted quickly enough. However, they can take a long time to accrue patients and follow them up so won’t get a quick result."
+)
+```
+
+3.	What would the outcome measure(s) be for this study? What issues can arise in
+the definition of the outcome measures for this study?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "The main outcome is recurrence free survival. Therefore, the main outcome measure will be time to recurrence or time to death (whichever is first). However, recurrence and death need to be carefully defined. Recurrence maybe biochemical recurrence, triggered recurrence or clinical recurrence and it will be important to be clear which is the outcome. Death can be prostate cancer specific death or death from any cause. 
+    As well as the main (or primary) outcome, we may include secondary outcomes that are additional question we wish to answer. Secondary outcomes maybe overall survival time, all cause mortality or distant metastases free survival. For which the outcome measures are time to prostate cancer specific death, time to death from any cause, time to distant metastases."
+)
+```
+
+4.	What factors might affect the outcome? What information may you need to
+collect for use in the study analysis?
+
+```{r eval=showSolutions, results='asis'}
+solution_bullet(
+    "Gleason grade: pathological scoring system by which to classify prostate cancers with respect to microscopic features of cancer cells, including differentiation. Prognostic score, with higher score predicting worse outcome. Score is given from 1-5 and two scores are given to represent the two most prevalent cell types. These scores are represented as (score 1) + (score 2) and is out of 10. Gleason sum <6 is well-differentiated, 7 is moderately-differentiated and 8-10 is poorly-differentiated.
+    T-stage: can be clinical, radiological or pathological. Clinical T stage is used to classify patients based on the palpable extent of disease. If it is impalpable, but found on biopsy, it is T1c. Palpable cancer is then classified from cT2 to cT4 (with 4 being more extensive disease into the surrounding organs, i.e. rectum or bladder). Radiological is the extent of disease found on imaging (usually CT or MRI scan). Pathological cancer is classified from a prostate, which has been removed (radical prostatectomy) and is the most accurate staging, with pT3 disease representing extra-capsular spread.
+    Surgical margin status (pathological report of radical prostatectomy specimen which says if a cancer is at the margin of the specimen (different pathologists report this very differently, with some using a 2mm margin, some <1mm margin, etc.) and therefore likely to have been incompletely removed. A positive margin confers a worse prognosis and many patients need further treatment, including radiotherapy, although some patients are monitored closely without further treatment.
+    PSA (prostate specific antigen), serine protease enzyme present in serum, raised levels of which indicate biochemical recurrence. 
+    Age at diagnosis: age usually in years at the time of prostate cancer diagnosis.
+    Tumour volume: amount of tumour, can be the weight of the tumour in g or percentage of the gland that is tumour.   
+    Treatment: surgery, chemotherapy, radiotherapy etc. 
+    M-Stage: is based on the radiological findings of metastases. M-score corresponds to the location of metastases from 0 (none), 1 (distant lymph nodes), 1b (bones) and 1c (other sites).
+    N-Stage: the pathological findings of lymph nodes containing cancer after radical prostatectomy, when we also remove the lymph nodes in most/high risk patients, is the N-score for nodes.
+    Cellularity: The proportion of a tissue sample that is tumour."
+)
+```
+
+5.	What are your groups? Do you need a control group in addition? If so what
+will your control group be?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Two groups, those who have experienced recurrence or death, those who have not. To avoid bias in the results the cohort will need to be followed up for a sufficiently long time to observe a recurrence or death, the length of follow up should be longer than the expected time to experience the outcome. 
+
+Once the panel of biomarkers has been chosen then there will also be groups for those who are test positive and test negative. A 2-way table of these two sets of groups will be constructed to carry out statistics on. The panel of biomarkers should be different between those who go on to recur or die and those who do not. 
+
+A normal group could also be included. These could be normal healthy patients, or if we are collecting tissue samples this could be normal tissue from the cancer patients. However, samples from healthy patients are usually better controls than non-cancer samples from cancer patients."
+)
+```
+
+6.	What effect would a short follow-up time have? Which group will this affect
+more?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "The effect of having a short follow-up time will be dependent on how quickly the patients experience recurrence or death. If these events happen relatively quickly then a short follow-up time will have less of an impact. The shorter the follow-up time the less likely you are to see the events of interest. This will mean that there are patients in the study that are included in the not recurred/died group that are there because they have not been followed up long enough to experience the event. The group that will be affected most is the not recurred/died group as this will have incorrectly classified patients. The recurred/died group will have missing patients. 
+    We need to compare the follow-up time in the group that has not recurred/died to the time to recurrence/death in the other group. Ideally the follow-up time in the former is longer than the time to event in the latter group, therefore, the subjects will have had sufficient time to experience the event."
+)
+```
+
+7.	Which technologies could you use to screen for your panel of biomarkers?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Genomics: RNA-seq, gene expression microarrays, qPCR/RT-PCR
+    Proteomics: mass spectrometry, tissue microarrays"
+)
+```
+
+8.	What factors might influence your choice of technology for this study?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "The decision would be based on your objectives, cost, logistics, feasibility and technological limitations."
+)
+```
+
+9.	Once your study has a panel of biomarkers from which a test for recurrence
+has been formulated. What is the next step?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "The test must be tested in an external validation cohort. This would be a different set of patients, perhaps in a different hospital and at a different time. The test will be tested to see how well it predicts recurrence in prostate cancer."
+)
+```
+
+10.	What characteristics would a clinical test formed from your biomarkers need?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Quick result, preferably one that can be done there and then on the spot rather than being sent to a lab. A non-invasive procedure of sample collection would be best. Collecting urine and saliva is non-invasive to the patient whereas taking tissue biopsies (e.g. using needles) are invasive and complicated. You may want to focus your efforts on secretory/soluble proteins, for example.
+    For a test to be adopted it needs to have a high sensitivity (proportion of recurrent cancers that the test detects) and a high specificity (proportion of non-recurrent cancers that have a negative test). Of course there is always a trade-off between sensitivity and specificity. As this test may be used to decide on a more aggressive form of treatment we would want to maximise specificity, as we would wish to spare those patients who are unlikely to experience recurrence from the harmful side effects of aggressive treatment. From the perspective of the patient it should have a high positive predictive value (probability of having prostate cancer given that you’ve had a positive test result) and negative predictive value (probability of not having prostate cancer when you’ve had a negative test result)."
+)
+```
+ 
+\newpage
+# 2. Mouse practical: Gene expression profile of wild and mutant HHEX in brain and liver development
+
+Hematopoietically Expressed Homeobox (HHEX) is a transcription factor which,
+plays an important role in the proper development of brain and liver in mouse. A
+mutant HHEX (where all Serine and Tyrosine residues are mutated to Alanine) is
+hyperactive and induces fetal death in mutant homozygous mice. We are interested
+in identifying gene expression changes in brain and liver and in determining key
+pathways involved, in response to hyperactivity of HHEX gene. Note that, samples
+are collected from 15 day-old fetuses that are homozygous wildtype (Wt/Wt),
+heterozygous mutant (Wt/Mt) and homozygous mutant (Mt/Mt), which manifest
+distinguishing morphological characteristics.
+
+Experimental design related question and answers:
+
+1)	What are the scientific questions of interest in this experiment?
+
+```{r eval=showSolutions, results='asis'}
+solution_letters(
+    "Which genes show expression changes in response to mutant HHEX in brain and/or liver?
+    Do homozygous and heterozygous mutant HHEX mice show similar expression profiles?
+    Which genes show exclusive response in brain and liver respectively in response to hyperactivity of HHEX gene?
+    Which are the pathways that are involved in HHEX hyperactivity?"
+)
+```
+
+
+2)	What are you measuring?
+
+```{r eval=showSolutions, results='asis'}
+solution_letters(
+    "If you use RNA-seq you are measuring read counts.
+     If you use microarray you are measuring intensities."
+)
+```
+
+3)	What controls samples should be included in this experiment? Why is control
+needed in the experiment?
+
+```{r eval=showSolutions, results='asis'}
+solution_letters(
+    "Wt/Wt mouse group is a control group that Wt/Mt and Mt/Mt groups will be compared against.
+     It is difficult, if not impossible, to measure the absolute gene expression changes. In differential expression experiments, one or more control group acts as a reference to compare the groups of interest to. Both Wt/Mt and Mt/Mt groups are compared against the control (Wt/Wt group)."
+)
+```
+
+4)	How many replicates you need to include for each group? Discuss what factors
+might have influence in selecting the number of replicates?
+
+```{r eval=showSolutions, results='asis'}
+solution_letters(
+    "Including replicates reduces variability in experimental results, increasing their significance.
+     There is no standard number of replicates recommended in an experiment. The number of replicates required, depends on various factors and therefore varies experiment to experiment. It is important to consider the number of replicates for each experiment that is carried out. 
+     The absolute minimum number of replicates required is three per each experimental group. Statistical analysis cannot be carried if there are fewer than three replicates per group. The Bioinformatics Core recommend a minimum of four replicates per group to allow for analysis to be carried out should a sample drop out of a group for whatever reason. 
+     In general a larger number of replicates should result in a more powerful experiment (i.e an experiment that is more likely to detect the effect size of interest should it exist in the population).
+     Number of replicates required depends on the following factors:\\begin{enumerate}[label=\\roman*]
+            Amount of variation between experimental units. The more variability the harder it will be to detect the difference of interest therefore more replicates will be required.  
+            Effect size of interest (difference between control and treatment).  To capture small effect size of interest, one needs to use more replicates. Therefore, it is important to know what size of effect you are interested in finding within the experiment. 
+            Statistical power required, in general the higher the number of replicates the higher the statistical power. 80% is usually taken as the amount of power to aim for in an experiment, that is there is an 80% chance of detecting a particular effect size given that it exists in the population. However, for the p-values to be repeatable 90% power is required. 
+            The Statistical significance level to be used in the statistical tests. This is usually taken to be 0.05 but can vary in different situations and should be pre-specified. 
+            The type of alternative hypothesis (one sided or two sided alternate hypothesis)
+            Other factors such as cost, ethics and ability to handle the number of replicates should also be considered.  
+            In our experiment one wants to see the effect of mutant HHEX on brain and liver development. Assuming that for each experimental group six biological replicates are required (note that both brain and liver samples can be collected from each fetus, this will give more power to any brain/liver comparisons). We need at least 18 mouse foetuses. Mouse average litter size is litter of 3–14; therefore samples may be collected from 2-6 different litters and letters should be from different male and female mouse pairs.\\end{enumerate}"
+)
+```
+
+
+5)	Which experimental groups will be included?
+
+```{r eval=showSolutions, results='asis'}
+solution_letters(
+    "There would be six experimental groups:\\begin{enumerate}[label=\\arabic*)]
+        Brain from homozygous wild type mice
+        Brain from homozygous mutant mice
+        Brain from heterozygous mutant mice
+        Liver from homozygous wild type mice
+        Liver from homozygous mutant mice
+        Liver from heterozygous mutant mice.\\end{enumerate}
+     This is a 2 factorial experiment with three different levels."
+)
+```
+
+```{r eval=showSolutions}
+tab <- data.frame(`Wt/Wt`=c(6,6), `Wt/Mt`=c(6,6), `Mt/Mt`=c(6,6))
+rownames(tab) <- c("Brain", "Liver")
+knitr::kable(tab)
+```
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Wt = Wild type  Mt = Mutant"
+)
+```
+
+6)	How will any findings be validated?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Comparing your results with previous findings from literature
+     We could re-validate the findings using experimental techniques such as qPCR, in separate samples, such samples from completely different litters. Validating on samples from different litter gives generalizability to your findings."
+)
+```
+
+7)	What contrasts (sample group comparisons) you make with the data? 
+
+```{r eval=showSolutions, results='asis'}
+solution_letters(
+    "Brain Wt/Wt vs Brain Wt/Mt for brain specific effect of heterozygous mutant
+     Brain Wt/Wt vs Brain Mt/Mt for brain specific effect of homozygous mutant
+     Liver Wt/Wt vs Liver Wt/Mt for liver specific effect of heterozygous mutant
+     Liver Wt/Wt vs Liver Mt/Mt for liver specific effect of homozygous mutant
+     Brain Wt/Wt vs Liver Wt/Wt, this comparison gives differentially expressed genes in brain and liver of wild type mouse.
+     Brain Wt/Mt vs Liver Wt/Mt, this comparison gives differentially expressed genes in brain and liver of heterozygous mutant mouse.
+     Brain Mt/Mt vs Liver Mt/Mt, this comparison gives differentially expressed genes in brain and liver of homozygous mutant mouse. Subtracting the Brain Wt/Wt Vs Liver Wt/Wt, gene list gives brain and liver specific effect of homozygous mutant genotype. 
+     Like above comparison we can also find out the brain and liver specific effect of the heterozygous mutant genotype."
+)
+```
+
+8)	What are possible sources of bias and confounding variables in the
+experiment?
+
+```{r eval=showSolutions, results='asis'}
+solution_letters(
+    "Gender of foetus
+     Age of the mice, animal breed, diet etc
+     People, if several people involved in sample collection and extraction.
+     Litter
+     Sequencing run
+     Index
+     Cage
+     Cage position
+     Technician handling the mice
+     Extraction batch"
+)
+```
+
+9)	How can these sources of bias and confounding be controlled?
+
+```{r eval=showSolutions, results='asis'}
+solution_letters(
+    "Randomisation
+     Blinding"
+)
+```
+
+\newpage
+# 3.  Cell culture practical: Investigation into the effect of RAR$\alpha$ on transcription in breast cancer tissue treated with estrogen
+
+Outline:
+
+RAR$\alpha$ is a transcription factor that appears to interact with estrogen
+(E2) in ER+ breast cancer. We are interested in characterising this interaction
+by looking at how gene expression changes in breast cancer cells treated with
+estrogen when RAR$\alpha$ is not present (using a siRNA in cultured cells). We
+wish to identify which estrogen-induced and estrogen-repressed genes are
+impacted by the presence or absence of RAR$\alpha$, and to analyse the key
+pathways involved.
+
+Design-related questions:
+
+1.	What are your objectives? 
+
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "The main objective is to identify which estrogen-induced and repressed genes are affected by RAR$\\alpha$ silencing, and to see if these genes are associated with specific pathways."
+)
+```
+
+2.	What are you measuring? 
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "You are measuring gene expression in terms of sequencing read counts."
+)
+```
+
+3.	What are your primary sample groups of interest?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Cells with and without estrogen stimulation, and with and without RAR$\\alpha$ silenced:"
+)
+solution_bullet(
+   "Vehicle
+    estrogen
+    siRAR$\\alpha$ + Vehicle
+    siRAR$\\alpha$ + estrogen"
+)
+```
+        
+
+4.	What controls will you use each type of sample group?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Estrogen treatment will have a negative control consisting of Vehicle (no estrogen) media. RAR$\\alpha$ silencing will be have a negative control consisting of a scrambled (non-specific) siRNA, dubbed siNT. Cells untreated with any siRNA will serve as a baseline control for expression. Adding to the sample groups:"
+)
+solution_bullet(
+   "siNT + Vehicle
+    siNT + Estrogen"
+)
+```
+
+5. What constitutes a replicate in this experiment? Are they biological or
+technical? How many samples/replicates should be collected?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "When performing cell cultures, minimise as much ‘technical’ related variation as possible. It’s a grey area here on what is a ‘technical’ variable but it is important to have consistency when growing cells, ie check for consistent growth, consistent feeding times, time of extraction, confluence, all cells are happy, cell density, seeding method etc. Try and keep procedures uniform across all your samples groups. If this is not possible then randomise. The siRNA and siNT must have the same procedure.
+     Depending on the circumstances, it may be worth doing a pilot study first to get an idea of what the biological variability is in your control group, unless there is data collected already for these cell lines (internally and/or externally). Check if there are any previous RNA-seq or available: use the same control cell lines as this maybe useful in calculating sample size. Note though that there is currently no formal method for sample size determination for RNA-seq.
+     Currently, for cell line experiments, as a rule of thumb at CRUK-CI we aim for at least four replicates of each sample type.
+     Also, if you are going to verify the results using an alternative method e.g. RT-PCR, then it is worth collecting more samples for the verification. These ideally should not be the samples being investigated using RNA-seq."
+)
+```
+
+6.	Sketch out the design as a matrix, with sample numbers
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "This would be a 3x2 factorial design (see table below). A factorial experiment is an experiment whose design consists of two or more factors, each with discrete possible values or \"levels\"."
+)
+```
+
+
+```{r eval=showSolutions}
+tab <- data.frame(Vehicle=rep(4, 3), Estrogen=rep(4, 3))
+rownames(tab) <- c("No silencing", "siNT", "siRAR$\\alpha$")
+knitr::kable(tab)
+```
+
+7.	What sample group comparisons (contrasts) will you make with the data? Which
+gene set(s) will you use for pathway analysis?
+
+
+```{r eval=showSolutions, results='asis'}
+solution_arabic(
+    "siNT+Estrogen vs. siRAR$\\alpha$+Estrogen: the main effect of silencing RAR$\\alpha$.
+     Vehicle vs Estrogen: baseline of Estrogen induced/repressed genes. 
+     siNT+Vehicle vs. siNT+Estrogen: Estrogen induced/repressed genes, should be similar to 2).
+     siRAR$\\alpha$+Vehicle vs. siRAR$\\alpha$+Estrogen: the main effect of Estrogen treatment in RAR$\\alpha$-silenced cells."
+)
+solution(
+    "Others?
+    Set 1) includes genes that RAR$\\alpha$ specifically is influencing in the presence of Estrogen. Set 4) includes all genes that are induced/repressed by Estrogen in the absence of RAR\\alpha$.  Sets 2) and 3) include genes that are altered by Estrogen in the presence of RAR$\\alpha$. Seeing how enriched pathways are altered in the different sets may be illuminating."
+)
+```
+
+
+8.	What are possible confounding factors and sources of bias?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "The cell density, media assay, batch processing, person, day, plate etc.
+    Uniform batch, media assay, and use a randomised block design in your processing.
+    Others?"
+)
+```
+
+9.	How will you confirm effective silencing?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Quantitative RT-PCR and any other independent method involving known candidates, markers and controls."
+)
+```
+
+10.	What information about your experiment should be recorded to help identify
+any problems should there be any?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Cell density, siNT batch, media batch, date of passage, RIN, any other relevant dates, people, batch lot numbers/dates etc."
+)
+```
+
+11.	Will you be multiplexing samples? How will you assign barcodes? Will you use
+pooled libraries? How many pools? How will samples be assigned to pools?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "There are 24 samples in this experiment. They will all be able to fit in a single “pool” using 24 unique barcodes. This eliminates the need to perform pool randomisation."
+)
+```
+
+12.	What are the sequencing parameters you need to be aware of (e.g. sequencing
+type and depth)?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "For detecting differential gene expression, we typically perform 50bp Single-end (SE) sequencing, and aim for 10-20 million reads/sample. With a HiSeq lane yielding 240 million reads, we would request 2 lanes."
+)
+```
+
+13.	What other types of data might be useful to assay, and how might the
+sequencing parameters need to change to accommodate this?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Are you interested in detecting or counting gene splicing events (isoforms) or gene fusions? If so, you may require Paired-end (PE) sequencing and/or more sequencing depth."
+)
+```
+
+14.	Can you think of any other design related issues that could/should be
+addressed?
+
+\newpage
+# 4.  ChIP-seq practical: Investigation into the effect of RAR$\alpha$ on transcription in breast cancer tissue treated with estrogen.
+
+You are studying the evolution of mouse gene regulation by assaying
+transcription factor binding. You have stable colonies of three inbred mouse
+strains housed in the Biological Resource Unit (they are called BL6, CAST and
+SPRET, see the picture below for evolutionary relationships). These strains are
+derived from different species and subspecies in the Mus genus. You have access
+to other data which suggests that transcription factor binding changes between
+species, and you want to characterise the divergence of transcription factor
+binding over this short evolutionary distance. You have picked a model tissue
+(liver), and you plan to use Chromatin immunoprecipitation and sequencing
+(ChIPSeq) to assay transcription factor binding in all three strains. You have
+selected four transcription factors to assay plus Polymerase II as a proxy for
+transcription of genes (HNF1$\alpha$, HNF4$\alpha$, HNF6, CEBP$\alpha$, PolII).
+
+Design-related questions
+
+1.	What is the main aim of the experiment?
+
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Be precise: To measure differences in transcription factor binding among three mouse strains."
+)
+```
+
+2.	What are you measuring?
+
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Be specific: The number and location of transcription factor binding sites genome-wide."
+)
+```
+
+3.	What is your control?
+
+```{r eval=showSolutions, results='asis'}
+solution_bullet(
+    "The control for a ChIPseq is an aliquot of DNA removed before the chromatin crosslinking step, called an Input. To reduce costs, it is common practice to use one input sample to control multiple transcription factors. However you will need one input per species or cell line to account for differences in the genome.
+    One input sample from each strain (BL6, CAST and SPRET)"
+)
+```
+
+4.	How will you validate your results?
+
+```{r eval=showSolutions, results='asis'}
+solution_bullet(
+    "It is considered good practice to use a non-NGS based method. Try to validate as many putative targets as practical.
+     ChIP-qPCR the on top 15 hits from each strain."
+)
+```
+
+5.	What is your study design? How many replicates will you use? Will you use
+biological or technical replicates? What is the total number of samples you will
+prepare and sequence?
+
+```{r eval=showSolutions, results='asis'}
+solution_bullet(
+    "You need a minimum of 3 replicates for any statistical analysis. If you start with only 3 replicates and 1 sample fails QC at the final hurdle, you will have to start all over again, what a waste! So always start with more than 3 replicates. As with any project, the more replicates you use the more sensitivity your experiment will have – 6 replicates will allow you to detect smaller differences than 4 replicates.
+     At least four mice from each group. 
+     These are independent mice, therefore they are biological replicates. 
+     Technical replicates would not add value to this study because you are not interested in assaying technical variability, and they would be as expensive as biological replicates.
+     You have three groups (BL6, CAST, SPRET) and five assays (four transcription factors + Pol II)
+     There are 63 samples in total: 3 groups x 4 replicates x 5 assays = 60, plus 3 input samples."
+)
+```
+
+6.	What are possible confounding factors and sources of bias? The reference
+genome for mouse was generated from the BL6 mouse strain; does this have any
+effect on your experiment?
+
+```{r eval=showSolutions, results='asis'}
+solution_bullet(
+    "There are a huge number. How many can you think of?
+    BL6 will align to the reference genome better than CAST or SPRET, which could bias any genomic analysis. Try to source genomic variant for the non-reference strains if possible. 
+    Mouse age
+    Mouse sex
+    Mouse diet
+    Chromatin processing batch
+    Sacrifice time of day (due to circadian rhythm)
+    Cage
+    Mouse handler
+    Genome sequence
+    Library preparation batch
+    Reagent batches
+    Litter relationships"
+)
+```
+ 
+7.	What information should you collect about your samples to help identify any
+problems downstream?
+
+```{r eval=showSolutions, results='asis'}
+solution(
+    "Everything that you can find – the more the better. Here are some suggestions:"
+)
+solution_bullet(
+    "Any relationships between mice (e.g. Parents, siblings)
+     Cage ID/Litter ID
+     Age
+     Sacrifice date
+     Chromatin immunoprecipitation date and batch
+     Library preparation date
+     Library QC and quantification data
+     Pool"
+)
+```
+
+8.	When will you collect your samples? Which mice will you choose? How will you
+store the tissue samples?  How and when will you perform the Chromatin
+immunoprecipitation? How and when will you prepare your libraries? Where will
+you go to find out the information necessary to make these decisions?
+
+```{r eval=showSolutions, results='asis'}
+solution_bullet(
+    "For a successful comparison experiment, match all possible biological and technical factors across all samples
+     Where you have to use batches, make sure all groups are represented in each batch, and ask the Bioinformatics core to randomise your samples across processing batches.
+     Sacrifice mice at the same time of day. For example, between 10am and 12am.
+     Match the ages of your mice. For example, adult mice between 6 months and 9 months.
+     Store your tissue in formaldehyde according to the ChIPseq protocol you have chosen to use, used exactly the same way every time. Pay particular attention to incubation times.
+     Perform chromatin immunoprecipitation in batches which are balanced across all sample groups, ask the Bioinformatics core to randomise your samples across batches.
+     Perform library preparation on all ChIP’d DNA in batches which are balanced across all sample groups, ask the Bioinformatics core to randomise your samples across batches."
+)
+```
+
+9.	Where can you go to find out how to test the quality and quantity of your
+resulting libraries? Who can you ask for feedback as to whether your libraries
+are likely to sequence well?
+
+```{r eval=showSolutions, results='asis'}
+solution_bullet(
+    "We recommend the Bioanalyzer for quality control and qPCR for quantification. The Genomics core offers advice and support on all aspects of library preparation, QC and quantification.
+    The Genomics Core!
+    Quantification by qPCR
+    Check the quality by Bioanalyzer"
+)
+```
+
+10.	NGS Libraries are frequently mixed together and sequenced as pools. Your kit
+only allows you to pool a maximum of 12 libraries. How many pools will you make
+for your study, and how many samples will be in each pool? Which libraries will
+you pool together? Where can you go to find out the information necessary to
+make these decisions?
+
+```{r eval=showSolutions, results='asis'}
+solution_bullet(
+    "Try to use the smallest number of pools possible, and keep the pool sizes as similar as possible.
+     You have only 12 indexes therefore the minimum number of pools you can make is 6 (3 pools of 10, 3 pools of 11). 
+     Make sure sample groups are present in all pools, ask the Bioinformatics core to randomise your samples across pools.
+     The Genomics Core!"
+)
+```
+
+#### Advanced
+
+Given that ChIPseq analysis is based on counting reads, and you have decided you
+need 10 – 20 million reads for your analysis, what type of sequencing will you
+use, and how many lanes do you need? Where can you go to find out the
+information necessary to make these decisions?
+
+Note: Our HiSeq 2500 currently provides 150 – 250 million reads/lane 
+
+If you were using a kit which allowed you to pool 96 libraries, how many lanes
+would you need for this experiment? What could you do to reduce the chance of
+paying for unnecessary sequencing?
+
+```{r eval=showSolutions, results='asis'}
+solution_bullet(
+    "Between 4 lanes and 9 lanes
+     You could sequence 1 lane and check the yield. Based on the fact that yield is reproducible between lanes of the same library pool, you can work out how many further lanes you will need and then submit for resequencing.
+     ChIPseq is a counting analysis, so longer reads are of no value: HiSeq Single End 50bp
+     Since you have 6 pools, you will need an integer multiple of 6 lanes. 1 lane per pool would give you between 13.6 million and 25 million reads per sample, so start with that
+     The Genomics Core"
+)
+```
+
+
+
