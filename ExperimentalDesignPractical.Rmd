@@ -5,7 +5,7 @@ output:
         toc: true
         extra_dependencies: ["enumitem"]
 params:
-    showSolutions: "Yes"
+    showSolutions: "No"
 ---
 \newcommand{\solution}[1]{{\leavevmode\color{blue}#1}}
 \newpage
@@ -321,168 +321,105 @@ solution_letters(
 ```
 
 \newpage
-# 3.  Cell culture practical: Investigation into the effect of RAR$\alpha$ on transcription in breast cancer tissue treated with estrogen
+# 3.  Proteomics Practical: AR interactome differences between drug responsive and resistance conditions
 
-Outline:
+The androgen receptor (AR), is a type of nuclear receptor, that is activated by
+binding either testosterone, or dihydrotestosterone in the cytoplasm. Activated
+AR then translocating into the nucleus and bind to DNA to regulate the activity
+of various genes. Prostate cancer is associated with alterations in AR
+functions. In fact, drugs that prevent the production of androgens and/or block
+the action of the AR inhibits prostate cancer growth. However resistance to
+these drugs often occurs after first couple of years. In this study we are
+interested in identifying the AR interactome differences between drug responsive
+and resistance conditions.
 
-RAR$\alpha$ is a transcription factor that appears to interact with estrogen
-(E2) in ER+ breast cancer. We are interested in characterising this interaction
-by looking at how gene expression changes in breast cancer cells treated with
-estrogen when RAR$\alpha$ is not present (using a siRNA in cultured cells). We
-wish to identify which estrogen-induced and estrogen-repressed genes are
-impacted by the presence or absence of RAR$\alpha$, and to analyse the key
-pathways involved.
-
-Design-related questions:
-
-1.	What are your objectives? 
-
+1.	What are the scientific questions/objectives of interest in this experiment?
 
 ```{r eval=showSolutions, results='asis'}
 solution(
-    "The main objective is to identify which estrogen-induced and repressed genes are affected by RAR$\\alpha$ silencing, and to see if these genes are associated with specific pathways."
+    "The main objective is to find out the differentially interacting AR proteins in drug responsive and resistant conditions."
 )
 ```
 
-2.	What are you measuring? 
+2. What experimental technique/s can you use to quantify the protein interaction differences?
+
+```{r eval=showSolutions, results='asis'}
+solution("Co-IPs/western blotting, Mass spectrometry based proteomics")
+```
+
+3. What are you measuring?
 
 ```{r eval=showSolutions, results='asis'}
 solution(
-    "You are measuring gene expression in terms of sequencing read counts."
+    "The relative difference in the same peptide between different samples. There are several ways to do this, the most rapid/sensitive being mass spectrometry based peptide analysis (Label free, SILAC, isobaric labelling)."
 )
 ```
 
-3.	What are your primary sample groups of interest?
+4. Do you think controls samples should be included in this experiment? If yes, what is the role of controls in the experiment? Suggest few samples which can be used as a control.
 
 ```{r eval=showSolutions, results='asis'}
 solution(
-    "Cells with and without estrogen stimulation, and with and without RAR$\\alpha$ silenced:"
-)
-solution_bullet(
-   "Vehicle
-    estrogen
-    siRAR$\\alpha$ + Vehicle
-    siRAR$\\alpha$ + estrogen"
+    "IgG control for determining specificity i.e. those proteins that are bound specifically to AR protein complex."
 )
 ```
-        
 
-4.	What controls will you use each type of sample group?
+5. What are the sample groups in the experiment?
 
 ```{r eval=showSolutions, results='asis'}
-solution(
-    "Estrogen treatment will have a negative control consisting of Vehicle (no estrogen) media. RAR$\\alpha$ silencing will be have a negative control consisting of a scrambled (non-specific) siRNA, dubbed siNT. Cells untreated with any siRNA will serve as a baseline control for expression. Adding to the sample groups:"
-)
-solution_bullet(
-   "siNT + Vehicle
-    siNT + Estrogen"
+solution_letters(
+    "AR pull-down from drug resistant and responsive cell lines/tumours.
+     IgG pull-down from drug resistant and responsive cell lines/tumours."
 )
 ```
 
-5. What constitutes a replicate in this experiment? Are they biological or
-technical? How many samples/replicates should be collected?
-
-```{r eval=showSolutions, results='asis'}
-solution(
-    "When performing cell cultures, minimise as much ‘technical’ related variation as possible. It’s a grey area here on what is a ‘technical’ variable but it is important to have consistency when growing cells, ie check for consistent growth, consistent feeding times, time of extraction, confluence, all cells are happy, cell density, seeding method etc. Try and keep procedures uniform across all your samples groups. If this is not possible then randomise. The siRNA and siNT must have the same procedure.
-     Depending on the circumstances, it may be worth doing a pilot study first to get an idea of what the biological variability is in your control group, unless there is data collected already for these cell lines (internally and/or externally). Check if there are any previous RNA-seq or available: use the same control cell lines as this maybe useful in calculating sample size. Note though that there is currently no formal method for sample size determination for RNA-seq.
-     Currently, for cell line experiments, as a rule of thumb at CRUK-CI we aim for at least four replicates of each sample type.
-     Also, if you are going to verify the results using an alternative method e.g. RT-PCR, then it is worth collecting more samples for the verification. These ideally should not be the samples being investigated using RNA-seq."
-)
-```
-
-6.	Sketch out the design as a matrix, with sample numbers
-
-```{r eval=showSolutions, results='asis'}
-solution(
-    "This would be a 3x2 factorial design (see table below). A factorial experiment is an experiment whose design consists of two or more factors, each with discrete possible values or \"levels\"."
-)
-```
-
-
-```{r eval=showSolutions}
-tab <- data.frame(Vehicle=rep(4, 3), Estrogen=rep(4, 3))
-rownames(tab) <- c("No silencing", "siNT", "siRAR$\\alpha$")
+```{r}
+tab <- data.frame(`Drug Responsive` = c(4,4), `Drug Resistant` = c(4,4))
+rownames(tab) <- c("AR pulldown", "IgG pulldown")
 knitr::kable(tab)
 ```
 
-7.	What sample group comparisons (contrasts) will you make with the data? Which
-gene set(s) will you use for pathway analysis?
-
-
-```{r eval=showSolutions, results='asis'}
-solution_arabic(
-    "siNT+Estrogen vs. siRAR$\\alpha$+Estrogen: the main effect of silencing RAR$\\alpha$.
-     Vehicle vs Estrogen: baseline of Estrogen induced/repressed genes. 
-     siNT+Vehicle vs. siNT+Estrogen: Estrogen induced/repressed genes, should be similar to 2).
-     siRAR$\\alpha$+Vehicle vs. siRAR$\\alpha$+Estrogen: the main effect of Estrogen treatment in RAR$\\alpha$-silenced cells."
-)
-solution(
-    "Others?
-    Set 1) includes genes that RAR$\\alpha$ specifically is influencing in the presence of Estrogen. Set 4) includes all genes that are induced/repressed by Estrogen in the absence of RAR\\alpha$.  Sets 2) and 3) include genes that are altered by Estrogen in the presence of RAR$\\alpha$. Seeing how enriched pathways are altered in the different sets may be illuminating."
-)
-```
-
-
-8.	What are possible confounding factors and sources of bias?
+6. What constitutes a replicate in this experiment?  Are they biological or technical?  How many samples/replicates should be collected? Discuss what factors might have influence in selecting the number of replicates?
 
 ```{r eval=showSolutions, results='asis'}
 solution(
-    "The cell density, media assay, batch processing, person, day, plate etc.
-    Uniform batch, media assay, and use a randomised block design in your processing.
-    Others?"
+    "Depends on the type of design:"
+)
+solution_letters(
+    "Experiment with one cell line: You could do the experiment with one cell line, where both drug responsive and resistant strains available. Different passages of the same cell line could be used as replicates. Variability with in cell line is relatively low, therefore fewer replicates required. However the findings could be specific to that particular cell line and results can not be generalizable.
+     Experiment with different cell lines: One can do the experiment with different cell lines, where drug responsive and resistant strains available (paired design). Or alternatively using set of responsive and set of resistant cell lines.  In general variability between different cell lines is higher therefore needs more replicates, bur findings are more generalizable.
+     Experiment with patient/animal samples: The variability between patients/animals is much higher than cell lines, therefore needs higher number of replicates. Apart from true biological variability, there is potential to introduce technical variability in sample collections process."
 )
 ```
 
-9.	How will you confirm effective silencing?
+7. How will any findings be validated?
 
 ```{r eval=showSolutions, results='asis'}
 solution(
-    "Quantitative RT-PCR and any other independent method involving known candidates, markers and controls."
+    "CoIPs/proximity labelling/immunoflourence eg FRET"
 )
 ```
 
-10.	What information about your experiment should be recorded to help identify
-any problems should there be any?
+8. What are possible sources of bias and confounding variables in the experiment?
 
 ```{r eval=showSolutions, results='asis'}
 solution(
-    "Cell density, siNT batch, media batch, date of passage, RIN, any other relevant dates, people, batch lot numbers/dates etc."
+    "Cell line based experiments: Technical sample preparation, Reagents e.g. antibodies, runs etc.
+     Patient/animal based Experiments: Technical sample preparation, Reagents e.g. antibodies, runs, patient age, sex, sample extraction methods, sample storage methods etc."
 )
 ```
 
-11.	Will you be multiplexing samples? How will you assign barcodes? Will you use
-pooled libraries? How many pools? How will samples be assigned to pools?
+9. How can these sources of bias and confounding be controlled?
 
 ```{r eval=showSolutions, results='asis'}
-solution(
-    "There are 24 samples in this experiment. They will all be able to fit in a single “pool” using 24 unique barcodes. This eliminates the need to perform pool randomisation."
+solution_letters(
+    "Try to use same procedures and reagents across the experiment. 
+     Randomisation
+     Collect and store the metadata associated with samples."
 )
 ```
-
-12.	What are the sequencing parameters you need to be aware of (e.g. sequencing
-type and depth)?
-
-```{r eval=showSolutions, results='asis'}
-solution(
-    "For detecting differential gene expression, we typically perform 50bp Single-end (SE) sequencing, and aim for 10-20 million reads/sample. With a HiSeq lane yielding 240 million reads, we would request 2 lanes."
-)
-```
-
-13.	What other types of data might be useful to assay, and how might the
-sequencing parameters need to change to accommodate this?
-
-```{r eval=showSolutions, results='asis'}
-solution(
-    "Are you interested in detecting or counting gene splicing events (isoforms) or gene fusions? If so, you may require Paired-end (PE) sequencing and/or more sequencing depth."
-)
-```
-
-14.	Can you think of any other design related issues that could/should be
-addressed?
 
 \newpage
-# 4.  ChIP-seq practical: Investigation into the effect of RAR$\alpha$ on transcription in breast cancer tissue treated with estrogen.
+# 4.  ChIP-seq practical: Transcription Factor Binding Divergence in Mice
 
 You are studying the evolution of mouse gene regulation by assaying
 transcription factor binding. You have stable colonies of three inbred mouse
@@ -496,6 +433,11 @@ binding over this short evolutionary distance. You have picked a model tissue
 (ChIPSeq) to assay transcription factor binding in all three strains. You have
 selected four transcription factors to assay plus Polymerase II as a proxy for
 transcription of genes (HNF1$\alpha$, HNF4$\alpha$, HNF6, CEBP$\alpha$, PolII).
+
+
+```{r echo=FALSE, out.width='50%', fig.align='center'}
+knitr::include_graphics('Mouse_lineage.png')
+```
 
 Design-related questions
 
