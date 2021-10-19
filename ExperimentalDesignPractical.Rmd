@@ -571,9 +571,31 @@ make these decisions?
 ```{r eval=showSolutions, results='asis'}
 solution_bullet(
     "Try to use the smallest number of pools possible, and keep the pool sizes as similar as possible.
-     You have only 12 indexes therefore the minimum number of pools you can make is 6 (3 pools of 10, 3 pools of 11). 
+     You have only 12 indexes therefore the minimum number of pools you can make is 6 (3 pools of 10 + 3 pools of 11). 
      Make sure sample groups are present in all pools, ask the Bioinformatics core to randomise your samples across pools.
      The Genomics Core!"
 )
 ```
 
+#### Advanced
+
+Given that ChIPseq analysis is based on counting reads, and you have decided you
+need atleast 20 million reads for your analysis, what type of sequencing will you
+use, and how many lanes do you need? Where can you go to find out the
+information necessary to make these decisions?
+
+Note: Our Novaseq currently provides 300 – 400 million reads/lane 
+
+If you were using a kit which allowed you to pool 96 libraries, how many lanes
+would you need for this experiment? What could you do to reduce the chance of
+paying for unnecessary sequencing?
+
+```{r eval=showSolutions, results='asis'}
+solution_bullet(
+    "Between 5 lanes and 7 lanes
+     You could sequence 1 lane and check the yield. Based on the fact that yield is reproducible between lanes of the same library pool, you can work out how many further lanes you will need and then submit for resequencing.
+     ChIPseq is a counting analysis, so longer reads are of no value: HiSeq Single End 50bp
+     Since you have 6 pools, you will need an integer multiple of 6 lanes. 1 lane per pool would give you between 25 million and 37 million reads per sample, so start with that
+     The Genomics Core"
+)
+```
