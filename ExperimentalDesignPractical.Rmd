@@ -144,7 +144,7 @@ solution(
 
 ```{r eval=showSolutions, results='asis'}
 solution(
-    "Genomics: RNA-seq, gene expression microarrays, qPCR/RT-PCR
+    "Genomics: RNA-seq, qPCR/RT-PCR
     Proteomics: mass spectrometry, tissue microarrays"
 )
 ```
@@ -206,8 +206,7 @@ solution_letters(
 
 ```{r eval=showSolutions, results='asis'}
 solution_letters(
-    "If you use RNA-seq you are measuring read counts.
-     If you use microarray you are measuring intensities."
+    "If you use RNA-seq you are measuring read counts."
 )
 ```
 
@@ -237,7 +236,7 @@ solution_letters(
             The Statistical significance level to be used in the statistical tests. This is usually taken to be 0.05 but can vary in different situations and should be pre-specified. 
             The type of alternative hypothesis (one sided or two sided alternate hypothesis)
             Other factors such as cost, ethics and ability to handle the number of replicates should also be considered.  
-            In our experiment one wants to see the effect of mutant HHEX on brain and liver development. Assuming that for each experimental group six biological replicates are required (note that both brain and liver samples can be collected from each fetus, this will give more power to any brain/liver comparisons). We need at least 18 mouse foetuses. Mouse average litter size is litter of 3–14; therefore samples may be collected from 2-6 different litters and letters should be from different male and female mouse pairs.\\end{enumerate}"
+            In our experiment one wants to see the effect of mutant HHEX on brain and liver development. Assuming that for each experimental group six biological replicates are required (note that both brain and liver samples can be collected from each fetus, this will give more power to any brain/liver comparisons). We need at least 18 mouse foetuses. Mouse average litter size is litter of 3–14; therefore samples may be collected from 2-6 different litters and litters should be from different male and female mouse pairs.\\end{enumerate}"
 )
 ```
 
@@ -577,29 +576,4 @@ solution_bullet(
      The Genomics Core!"
 )
 ```
-
-#### Advanced
-
-Given that ChIPseq analysis is based on counting reads, and you have decided you
-need 10 – 20 million reads for your analysis, what type of sequencing will you
-use, and how many lanes do you need? Where can you go to find out the
-information necessary to make these decisions?
-
-Note: Our HiSeq 2500 currently provides 150 – 250 million reads/lane 
-
-If you were using a kit which allowed you to pool 96 libraries, how many lanes
-would you need for this experiment? What could you do to reduce the chance of
-paying for unnecessary sequencing?
-
-```{r eval=showSolutions, results='asis'}
-solution_bullet(
-    "Between 4 lanes and 9 lanes
-     You could sequence 1 lane and check the yield. Based on the fact that yield is reproducible between lanes of the same library pool, you can work out how many further lanes you will need and then submit for resequencing.
-     ChIPseq is a counting analysis, so longer reads are of no value: HiSeq Single End 50bp
-     Since you have 6 pools, you will need an integer multiple of 6 lanes. 1 lane per pool would give you between 13.6 million and 25 million reads per sample, so start with that
-     The Genomics Core"
-)
-```
-
-
 
