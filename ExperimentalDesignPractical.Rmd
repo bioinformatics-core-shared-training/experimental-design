@@ -71,7 +71,7 @@ cause?
 
 ```{r eval=showSolutions, results='asis'}
 solution(
-    "In an ideal world our cohort in this observational cohort study would be all prostate cancer patients from the UK at a particular time point. Logistically (spread over too wide an area and in too many hospitals), financially (many patients to take samples from and track) and ethically (not all patients will consent to be in the study) this would not be possible. For these reasons we need to take a sample of the patients.
+	 "In an ideal world our cohort in this observational cohort study would be all prostate cancer patients from the UK at a particular time point. This would however not be possible logistically (spread over too wide an area and in too many hospitals), financially (many patients to take samples from and track) nor ethically (not all patients will consent to be in the study). For these reasons we need to take a sample of the patients.
     Ideally we would take a random sample of all patients from across the country with every patient having an equal chance of being included in the study. Again this would have logistical issues. Next best would be to take a random sample of hospitals across the country and take a random sample of patients within those hospitals, with the sample size being proportional to the number of prostate cancer patients and perhaps stratifying on some important variables. These two methods are most likely to give a cohort that is representative of the population of the UK therefore the results will be generalisable to the population of interest.
     Most likely is that the study cohort will be all the patients within a particular time frame who consent to be included in the study from a local hospital, or perhaps with one or two others included. Issues with the generalisability of the study findings may arise if this hospital(s) are not representative of the population of prostate cancer patients across the UK."
     )
@@ -85,7 +85,7 @@ the cohort through time collecting data as it goes].
 ```{r eval=showSolutions, results='asis'}
 solution(
     "A retrospective study might not collect the correct data if it is something that is not routinely available in patient notes, they are more prone to missing data that can not be filled in at a later date. Data may not be in the correct format. Time consuming to extract data from notes. However, most of the data is already there, might have long follow up of patients, don’t need to wait a long time to achieve this. 
-    A prospective study allows collection of exactly the data that you need in the way that you need it. Less likely to have missing data, as you maybe able to chase up missing values if they are spotted quickly enough. However, they can take a long time to accrue patients and follow them up so won’t get a quick result."
+    A prospective study allows collection of exactly the data that you need in the way that you need it. Less likely to have missing data, as you may be able to chase up missing values if they are spotted quickly enough. However, they can take a long time to accrue patients and follow them up so won’t get a quick result."
 )
 ```
 
@@ -95,7 +95,7 @@ the definition of the outcome measures for this study?
 ```{r eval=showSolutions, results='asis'}
 solution(
     "The main outcome is recurrence free survival. Therefore, the main outcome measure will be time to recurrence or time to death (whichever is first). However, recurrence and death need to be carefully defined. Recurrence maybe biochemical recurrence, triggered recurrence or clinical recurrence and it will be important to be clear which is the outcome. Death can be prostate cancer specific death or death from any cause. 
-    As well as the main (or primary) outcome, we may include secondary outcomes that are additional question we wish to answer. Secondary outcomes maybe overall survival time, all cause mortality or distant metastases free survival. For which the outcome measures are time to prostate cancer specific death, time to death from any cause, time to distant metastases."
+    As well as the main (or primary) outcome, we may include secondary outcomes that are additional question we wish to answer. Secondary outcomes may be overall survival time, all cause mortality or distant metastases free survival. Outcome measures would thus be time to prostate cancer specific death, time to death from any cause, time to distant metastases."
 )
 ```
 
@@ -158,11 +158,11 @@ solution(
 ```
 
 9.	Once your study has a panel of biomarkers from which a test for recurrence
-has been formulated. What is the next step?
+has been formulated, what is the next step?
 
 ```{r eval=showSolutions, results='asis'}
 solution(
-    "The test must be tested in an external validation cohort. This would be a different set of patients, perhaps in a different hospital and at a different time. The test will be tested to see how well it predicts recurrence in prostate cancer."
+    "The test must be applied to an external validation cohort. This would be a different set of patients, perhaps in a different hospital and at a different time. The test will measure how well it predicts recurrence in prostate cancer."
 )
 ```
 
