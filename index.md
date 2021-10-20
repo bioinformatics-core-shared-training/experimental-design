@@ -9,7 +9,7 @@ Tinyurl for this page:[https://tinyurl.com/cruk-expt-des](https://tinyurl.com/cr
 
 # Course Materials
 
-- Course [Slides](/ExperimentalDesignCourseSlides.pdf)
+- Course [Slides](/ExperimentalDesignCourseSlides_18_10_21.pdf)
 - A Course [Manual](ExperimentalDesignManual.pdf)
 - A [Practical](ExperimentalDesignPractical.pdf) and some ["Solutions" / discussion](ExperimentalDesignPractical_Solutions.pdf)
 
