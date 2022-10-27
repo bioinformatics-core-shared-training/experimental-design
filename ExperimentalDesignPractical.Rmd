@@ -322,15 +322,16 @@ solution_letters(
 \newpage
 # 3.  Proteomics Practical: AR interactome differences between drug responsive and resistance conditions
 
-The androgen receptor (AR), is a type of nuclear receptor, that is activated by
-binding either testosterone, or dihydrotestosterone in the cytoplasm. Activated
-AR then translocating into the nucleus and bind to DNA to regulate the activity
+The androgen receptor (AR), is a type of nuclear receptor that is activated by
+binding either testosterone or dihydrotestosterone in the cytoplasm. Activated
+AR then translocates into the nucleus and binds to DNA to regulate the activity
 of various genes. Prostate cancer is associated with alterations in AR
 functions. In fact, drugs that prevent the production of androgens and/or block
-the action of the AR inhibits prostate cancer growth. However resistance to
+the action of the AR inhibit prostate cancer growth, however, resistance to
 these drugs often occurs after first couple of years. In this study we are
-interested in identifying the AR interactome differences between drug responsive
-and resistance conditions.
+interested in identifying differences in the AR interactome (the entire suite
+of proteins that AR interacts with) between drug responsive and resistance
+conditions.
 
 1.	What are the scientific questions/objectives of interest in this experiment?
 
@@ -354,7 +355,7 @@ solution(
 )
 ```
 
-4. Do you think controls samples should be included in this experiment? If yes, what is the role of controls in the experiment? Suggest few samples which can be used as a control.
+4. Do you think control samples should be included in this experiment? If yes, what is the role of controls in the experiment? Suggest few samples which can be used as a control.
 
 ```{r eval=showSolutions, results='asis'}
 solution(
